@@ -7,6 +7,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class Apresentacao {
 
@@ -14,7 +16,8 @@ public class Apresentacao {
 	private JTextField tfTamanho;
 	private JTextField tfValor;
 	private JTextField tfPosicao;
-	private VetorDeReais meuVetorObj;
+	private VetorDeReais meuVetorObj,
+						 outroVetorObj;
 
 	/**
 	 * Launch the application.
@@ -44,7 +47,7 @@ public class Apresentacao {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 449, 381);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -102,5 +105,73 @@ public class Apresentacao {
 		});
 		btnNewButton.setBounds(10, 109, 129, 23);
 		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnGuardar = new JButton("Guardar vetor");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				outroVetorObj = meuVetorObj;
+				JOptionPane.showMessageDialog(frame, "Vetor atual foi guardado");
+			}
+		});
+		btnGuardar.setBounds(279, 109, 110, 23);
+		frame.getContentPane().add(btnGuardar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 177, 379, 119);
+		frame.getContentPane().add(scrollPane);
+		JTextArea textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+		
+		JButton btnDividir = new JButton("Dividir");
+		btnDividir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VetorDeReais resultDivisao = meuVetorObj.divide(outroVetorObj);
+				textArea.setText("Divisão entre os objetos de VetorDeReais\n");
+				textArea.append("\nVetor A:"+meuVetorObj.exibir());
+				textArea.append("\nVetor B:"+outroVetorObj.exibir());
+				textArea.append("\nVetor Resultante:"+resultDivisao.exibir());
+			}
+		});
+		btnDividir.setBounds(10, 143, 89, 23);
+		frame.getContentPane().add(btnDividir);
+		
+		JButton btnMultiplicar = new JButton("Multiplicar");
+		btnMultiplicar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				double resultado = meuVetorObj.multiplica(outroVetorObj);
+				textArea.setText("Multiplicação entre os objetos de VetorDeReais\n");
+				textArea.append("\nVetor A:"+meuVetorObj.exibir());
+				textArea.append("\nVetor B:"+outroVetorObj.exibir());
+				textArea.append("\nM = "+resultado);
+			}
+		});
+		btnMultiplicar.setBounds(121, 143, 89, 23);
+		frame.getContentPane().add(btnMultiplicar);
+		
+		JButton btnInverter = new JButton("Inverter");
+		btnInverter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.setText("Inversão do VetorDeReais\n");
+				textArea.append("\nVetor original:"+meuVetorObj.exibir());
+				meuVetorObj.inverte();
+				textArea.append("\nVetor após inversão:"+meuVetorObj.exibir());
+			}
+		});
+		btnInverter.setBounds(219, 143, 89, 23);
+		frame.getContentPane().add(btnInverter);
+		
+		JButton btnDiferenca = new JButton("Diferen\u00E7a");
+		btnDiferenca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.setText("Maior diferença é "+meuVetorObj.maiorDiferencaEntreConsecutivos());
+				textArea.append("\nVetor :"+meuVetorObj.exibir());
+			}
+		});
+		btnDiferenca.setBounds(318, 143, 89, 23);
+		frame.getContentPane().add(btnDiferenca);
+		
+		
+		
+
 	}
 }
