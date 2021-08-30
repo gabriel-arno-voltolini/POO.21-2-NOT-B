@@ -27,7 +27,7 @@ public class InteiroPositivo
     }
 
     public long fatorial(){
-        int fatorial = 1;
+        long fatorial = 1;
         for(int i = this.x; i > 1; i--) {
             fatorial *= i;  // fatorial = fatorial * i;
         }

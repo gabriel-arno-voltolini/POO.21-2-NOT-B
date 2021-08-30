@@ -4,7 +4,7 @@ public class Contribuinte {
 	private String cpf;
 	private String uf;
 	private double rendaAnual;
-	
+
 	public String getNome() {
 		return this.nome;
 	}
@@ -12,7 +12,7 @@ public class Contribuinte {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getCpf() {
 		return cpf;
 	}
@@ -26,9 +26,7 @@ public class Contribuinte {
 	}
 
 	public void setUf(String uf) {
-		if (uf.equals("SC")
-			|| uf.equals("PR")
-			|| uf.equals("RS")) {
+		if (uf.equals("SC") || uf.equals("PR") || uf.equals("RS")) {
 			this.uf = uf;
 		}
 	}
@@ -38,7 +36,9 @@ public class Contribuinte {
 	}
 
 	public void setRendaAnual(double rendaAnual) {
-		this.rendaAnual = rendaAnual;
+		if (rendaAnual >= 0) {
+			this.rendaAnual = rendaAnual;
+		}
 	}
 
 	public double calcularImposto() {
@@ -49,17 +49,14 @@ public class Contribuinte {
 		double aliquota = 0;
 		if (this.rendaAnual > 35000) {
 			aliquota = 0.30; // 30%
-		}
-		else if (this.rendaAnual > 25000) {
+		} else if (this.rendaAnual > 25000) {
 			aliquota = 0.275; // 27,5%
-		}
-		else if (this.rendaAnual > 9000) {
+		} else if (this.rendaAnual > 9000) {
 			aliquota = 0.15; // 15%
-		}
-		else if (this.rendaAnual > 4000) {
+		} else if (this.rendaAnual > 4000) {
 			aliquota = 0.058; // 5,8%
 		}
 		return aliquota;
 	}
-	
+
 }
