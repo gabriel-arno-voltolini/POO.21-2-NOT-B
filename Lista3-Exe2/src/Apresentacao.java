@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
 public class Apresentacao {
@@ -24,6 +25,9 @@ public class Apresentacao {
 	private DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
 	private JTextField tfTituloConsulta;
 	private JTextArea taConteudo;
+	private HashMap<String,Obra> acervo = new HashMap<>();
+	private Obra obraAtual;
+	private JButton btnInserir;
 
 
 	/**
@@ -79,7 +83,18 @@ public class Apresentacao {
 		JButton btnCadastrarObra = new JButton("OK");
 		btnCadastrarObra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				// criar o objeto
+				obraAtual = new Obra();
+				// atribuir os valores (set)
+				obraAtual.setTitulo(tfTitulo.getText());
+				obraAtual.setAutor(tfAutor.getText());
+				// guardar o objeto no container
+				acervo.put(obraAtual.getTitulo(),obraAtual);
+				
+				tfNome.setEnabled(true);
+				tfData.setEnabled(true);
+				taConteudo.setEnabled(true);
+				btnInserir.setEnabled(true);
 			}
 		});
 		btnCadastrarObra.setBounds(343, 35, 81, 23);
@@ -121,10 +136,16 @@ public class Apresentacao {
 		taConteudo.setEnabled(false);
 		scrollPane.setViewportView(taConteudo);
 		
-		JButton btnInserir = new JButton("Inserir");
+		btnInserir = new JButton("Inserir");
+		btnInserir.setEnabled(false);
 		btnInserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				Parecer umParecer = new Parecer();
+				umParecer.setParecerista(tfNome.getText());
+				LocalDate data = LocalDate.parse(tfData.getText(),formatador);
+				umParecer.setData(data);
+				umParecer.setConteudo(taConteudo.getText());
+				obraAtual.adicionarParecer(umParecer);
 			}
 		});
 		btnInserir.setBounds(343, 211, 89, 23);
@@ -142,7 +163,15 @@ public class Apresentacao {
 		JButton btnNewButton = new JButton("Consultar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				Obra obraPesquisada = acervo.get(tfTituloConsulta.getText());
+				String message;
+				if (obraPesquisada == null) {
+					message = "Título não localizado";
+				}
+				else {
+					message = obraPesquisada.exibir();
+				}
+				JOptionPane.showMessageDialog(frame, message);
 			}
 		});
 		btnNewButton.setBounds(278, 272, 89, 23);
