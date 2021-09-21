@@ -6,6 +6,11 @@ public class DataAgenda {
 	private String efemeride;
 	private ArrayList<Compromisso> compromissos = new ArrayList<Compromisso>();
 
+	public ArrayList<Compromisso> getCompromissos(){
+		// para retornar uma cópia da lista ao invés da lista original
+		return (ArrayList<Compromisso>) this.compromissos.clone();
+	}
+	
 	public int getTempoMedio() {
 		int tempoTotal = 0;
 		for (Compromisso comp : compromissos) {
