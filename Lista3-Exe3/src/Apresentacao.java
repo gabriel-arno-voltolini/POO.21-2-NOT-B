@@ -17,14 +17,14 @@ import javax.swing.JCheckBox;
 
 /*
  * Apresentacao.java
- * Lista 3 - ExercÃ­cio 3
+ * Lista 3 - Exercício 3
  * GUI gerada com Netbeans
  */
 
 public class Apresentacao extends javax.swing.JFrame {
 
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+	private Agenda agenda = new Agenda();
 	
 	
 	/** Creates new form Apresentacao */
@@ -44,7 +44,20 @@ public class Apresentacao extends javax.swing.JFrame {
 		tfData.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-
+				LocalDate data = LocalDate.parse(tfData.getText(), formatter);
+				if (agenda.verificaData(data)) {
+					jBIncluirNaAgenda.setEnabled(false);
+					DataAgenda dia = agenda.busca(data);
+					String message = "Qtde compromissos de alta prioridade:"
+									+dia.getQtdCompromissosPrioridade('A');
+					for (Compromisso c: dia.getCompromissos()) {
+						message += "\n"+c.toString();
+					}
+					JOptionPane.showMessageDialog(null, message);
+				}
+				else {
+					jBIncluirNaAgenda.setEnabled(true);
+				}
 			}
 		});
 		jLabel2 = new javax.swing.JLabel();
@@ -80,7 +93,7 @@ public class Apresentacao extends javax.swing.JFrame {
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Lista 3 - Exerc\u00EDcio 3");
 
-		jLabel2.setText("EfemÃ©ride:");
+		jLabel2.setText("Efeméride:");
 
 		jLabel1.setText("Data:");
 
@@ -128,7 +141,7 @@ public class Apresentacao extends javax.swing.JFrame {
 
 		jLabel6.setText("Prioridade:");
 
-		jLabel5.setText("DescriÃ§Ã£o:");
+		jLabel5.setText("Descrição:");
 
 		buttonGroup1.add(jRadioButton3);
 		jRadioButton3.setText("Baixa");
@@ -211,7 +224,7 @@ public class Apresentacao extends javax.swing.JFrame {
 			}
 		});
 
-		jBTempoMedio.setText("Tempo mÃ©dio");
+		jBTempoMedio.setText("Tempo médio");
 		jBTempoMedio.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jBTempoMedioActionPerformed(evt);
@@ -316,7 +329,11 @@ public class Apresentacao extends javax.swing.JFrame {
 	}
 
 	private void jBIncluirNaAgendaActionPerformed(java.awt.event.ActionEvent evt) {
-
+		DataAgenda novoDia = new DataAgenda();
+		novoDia.setData(LocalDate.parse(tfData.getText(),formatter));
+		novoDia.setEfemeride(tfEfemeride.getText());
+		agenda.addDataAgenda(novoDia);
+		jBIncluirNaAgenda.setEnabled(false);
 	}
 
 	private void jBCompromissosDiaPrioridadeActionPerformed(java.awt.event.ActionEvent evt) {

@@ -24,6 +24,14 @@ public class Agenda {
 		datasAgenda.putIfAbsent(dataAgenda.getData(), dataAgenda);
 	}
 
+	public boolean verificaData(LocalDate data) {
+		return datasAgenda.containsKey(data);
+	}
+
+	public DataAgenda busca(LocalDate data) {
+		return datasAgenda.get(data);
+	}
+
 
 
 }

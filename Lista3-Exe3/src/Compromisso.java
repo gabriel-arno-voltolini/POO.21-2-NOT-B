@@ -13,6 +13,10 @@ public class Compromisso {
 		this.setTempo(tempo);
 		this.setPrioridade(prioridade);
 	}
+	
+	public String toString() {
+		return hora+" - "+descricao+" - "+tempo+" - "+prioridade;
+	}
 
 	public LocalTime getHora() {
 		return hora;
