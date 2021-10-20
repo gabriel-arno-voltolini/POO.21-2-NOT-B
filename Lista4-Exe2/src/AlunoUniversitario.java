@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class AlunoUniversitario extends Aluno {
+public class AlunoUniversitario extends Aluno{
 	private char formaIngresso;
 	private Curso curso;
 

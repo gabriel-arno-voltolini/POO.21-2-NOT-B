@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.time.Period;
 
-public abstract class Aluno {
+public abstract class Aluno{
 	private String nome;
 	private LocalDate dataNascimento;
 

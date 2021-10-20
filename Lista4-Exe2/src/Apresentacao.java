@@ -39,6 +39,7 @@ import java.awt.event.ActionEvent;
  */
 public class Apresentacao extends javax.swing.JFrame {
 
+	private ArrayList<Aluno> matriculados = new ArrayList<>();
 	private HashMap<String, Curso> cursos = new HashMap<>();
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -47,27 +48,26 @@ public class Apresentacao extends javax.swing.JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				//matriculados = null;
-				System.gc(); // chamando o garbage collector para forÃ§ar a destruiÃ§Ã£o dos objetos, perdidos
+				matriculados = null;
+				System.gc(); // chamando o garbage collector para forçar a destruição dos objetos, perdidos
 								// na linha anterior
-				JOptionPane.showMessageDialog(null, "Olhe a console para acompanhar a destruiÃ§Ã£o dos objetos");
+				JOptionPane.showMessageDialog(null, "Olhe a console para acompanhar a destruição dos objetos");
 			}
 		});
 
-
-		// ao invÃ©s de criar uma funcionalidade na interface com usuÃ¡rio para cadastrar
+		// ao invés de criar uma funcionalidade na interface com usuário para cadastrar
 		// os cursos,
-		// estou criando meia dÃºzia de cursos para facilitar
-			Curso c = new Curso("BCC", "CiÃªncia da ComputaÃ§Ã£o");
-			cursos.put(c.getSigla(), c);
-			c = new Curso("ADM", "AdministraÃ§Ã£o");
-			cursos.put(c.getSigla(), c);
-			c = new Curso("SIS", "Sistemas de InformaÃ§Ã£o");
-			cursos.put(c.getSigla(), c);
-			c = new Curso("PED", "Pedagogia");
-			cursos.put(c.getSigla(), c);
-			c = new Curso("CSO", "CiÃªncias Sociais");
-			cursos.put(c.getSigla(), c);
+		// estou criando meia dúzia de cursos para facilitar
+		Curso c = new Curso("BCC", "Ciência da Computação");
+		cursos.put(c.getSigla(), c);
+		c = new Curso("ADM", "Administração");
+		cursos.put(c.getSigla(), c);
+		c = new Curso("SIS", "Sistemas de Informação");
+		cursos.put(c.getSigla(), c);
+		c = new Curso("PED", "Pedagogia");
+		cursos.put(c.getSigla(), c);
+		c = new Curso("CSO", "Ciências Sociais");
+		cursos.put(c.getSigla(), c);
 		initComponents();
 	}
 
@@ -92,7 +92,7 @@ public class Apresentacao extends javax.swing.JFrame {
 		jTextArea1 = new javax.swing.JTextArea();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("Lista 4 - ExercÃ­cio 2");
+		setTitle("Lista 4 - Exercício 2");
 
 		jLabel1.setText("Nome do aluno:");
 
@@ -132,97 +132,102 @@ public class Apresentacao extends javax.swing.JFrame {
 		jScrollPane1.setViewportView(jTextArea1);
 
 		jLabel5 = new JLabel("Ingresso por:");
-		
-		
+
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
-								.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 518, GroupLayout.PREFERRED_SIZE)
-								.addGroup(layout.createSequentialGroup()
-									.addComponent(jbListar)
-									.addGap(247))))
-						.addGroup(layout.createSequentialGroup()
-							.addGap(22)
-							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGroup(layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(layout.createSequentialGroup().addContainerGap()
+								.addGroup(layout.createParallelGroup(Alignment.LEADING)
+										.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+										.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 518,
+												GroupLayout.PREFERRED_SIZE)
+										.addGroup(layout.createSequentialGroup().addComponent(jbListar).addGap(247))))
+						.addGroup(layout.createSequentialGroup().addGap(22).addGroup(layout
+								.createParallelGroup(Alignment.LEADING)
 								.addComponent(jcbTipoAluno, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
 								.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-									.addGroup(layout.createSequentialGroup()
-										.addComponent(jLabel2)
+										.addGroup(layout.createSequentialGroup().addComponent(jLabel2)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(jtfDataNascimento))
+										.addGroup(layout.createSequentialGroup().addComponent(jLabel1)
+												.addPreferredGap(ComponentPlacement.RELATED).addComponent(jtfNomeAluno,
+														GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(layout.createSequentialGroup().addComponent(jLabel3)
 										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(jtfDataNascimento))
-									.addGroup(layout.createSequentialGroup()
-										.addComponent(jLabel1)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(jtfNomeAluno, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(layout.createSequentialGroup()
-									.addComponent(jLabel3)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(jcbAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(45)
-									.addGroup(layout.createParallelGroup(Alignment.LEADING)
-										.addComponent(jbCadastrar)
-										.addGroup(layout.createSequentialGroup()
-											.addComponent(jLabel4)
-											.addGap(18)
-											.addComponent(jtfSigla, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addComponent(jLabel5)
-											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addComponent(jcbIngresso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-							.addGap(174)))
-					.addContainerGap())
-		);
-		layout.setVerticalGroup(
-			layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel1)
-						.addComponent(jtfNomeAluno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel2)
-						.addComponent(jtfDataNascimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(jcbTipoAluno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel3)
-						.addComponent(jcbAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(jcbAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(45).addGroup(
+												layout.createParallelGroup(Alignment.LEADING).addComponent(jbCadastrar)
+														.addGroup(layout.createSequentialGroup().addComponent(jLabel4)
+																.addGap(18)
+																.addComponent(jtfSigla, GroupLayout.PREFERRED_SIZE, 45,
+																		GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(ComponentPlacement.UNRELATED)
+																.addComponent(jLabel5)
+																.addPreferredGap(ComponentPlacement.UNRELATED)
+																.addComponent(jcbIngresso, GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)))))
+								.addGap(174)))
+						.addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup()
+				.addContainerGap()
+				.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(jLabel1).addComponent(
+						jtfNomeAluno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(layout
+						.createParallelGroup(Alignment.BASELINE).addComponent(jLabel2).addComponent(jtfDataNascimento,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.UNRELATED)
+				.addComponent(jcbTipoAluno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE)
+				.addGap(18)
+				.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(jLabel3)
+						.addComponent(jcbAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(jLabel4)
-						.addComponent(jtfSigla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel5)
-						.addComponent(jcbIngresso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(jbCadastrar)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jbListar))
-					.addGap(18)
-					.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-					.addContainerGap())
-		);
+						.addComponent(jtfSigla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(jLabel5).addComponent(jcbIngresso, GroupLayout.PREFERRED_SIZE,
+								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(jbCadastrar)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(jbListar)).addGap(18)
+				.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE).addContainerGap()));
 		getContentPane().setLayout(layout);
 		pack();
 	}
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+		try {
+			Aluno aluno;
+			String nomeAluno = jtfNomeAluno.getText();
+			LocalDate data = LocalDate.parse(jtfDataNascimento.getText(), formatter);
 
+			if (jcbTipoAluno.getSelectedIndex() == 0) { // Universidade
+				char ingresso = jcbIngresso.getSelectedItem().toString().charAt(0);
+				Curso curso = cursos.get(jtfSigla.getText());
+				aluno = new AlunoUniversitario(nomeAluno, data, ingresso, curso);
+			} else {
+				int ano = Integer.parseInt(jcbAno.getSelectedItem().toString());
+				aluno = new AlunoEnsinoMedio(nomeAluno, data, ano);
+			}
+			matriculados.add(aluno);
+			JOptionPane.showMessageDialog(this, "Aluno cadastrado");
+		} catch (DateTimeParseException dte) {
+			JOptionPane.showMessageDialog(this, "Data de nascimento inválida");
+		} catch (IllegalArgumentException iae) {
+			JOptionPane.showMessageDialog(this, iae.getMessage());
+		}
 	}
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 	}
 
 	private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
-		// manipulaÃ§Ã£o da interface com usuÃ¡rio
+		// manipulação da interface com usuário
 		if (jcbTipoAluno.getSelectedIndex() == 0) { // Universidade
 			jLabel3.setEnabled(false);
 			jcbAno.setEnabled(false);
