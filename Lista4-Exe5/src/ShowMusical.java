@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class ShowMusical extends Evento {
+public class ShowMusical extends Evento{
 	private String nomeBanda;
 	private String estiloMusical;
 

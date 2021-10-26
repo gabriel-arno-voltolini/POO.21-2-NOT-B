@@ -1,4 +1,4 @@
-public class Avaliacao {
+public class Avaliacao{
 	private int qtdPagantes;
 	private String opiniaoGeral;
 

@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Evento {
+public class Evento{
 	private String titulo;
 	private double valor;
 	private LocalDate data;
@@ -63,4 +63,11 @@ public class Evento {
 		}
 		return str;
 	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName()+":"+this.titulo;
+	}
+	
+	
 }

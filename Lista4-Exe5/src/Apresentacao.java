@@ -44,25 +44,25 @@ public class Apresentacao extends javax.swing.JFrame {
 		jLabel7 = new javax.swing.JLabel();
 		jLabel8 = new javax.swing.JLabel();
 		jLabel9 = new javax.swing.JLabel();
-		jTextField6 = new javax.swing.JTextField();
-		jTextField7 = new javax.swing.JTextField();
+		jtfQtdPagantes = new javax.swing.JTextField();
+		jtfOpiniaoGeral = new javax.swing.JTextField();
 		jButton2 = new javax.swing.JButton();
 		jButton3 = new javax.swing.JButton();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("Lista 4 - ExercÃ­cio 5");
+		setTitle("Lista 4 - Exercício 5");
 
-		jLabel1.setText("TÃ­tulo do evento:");
+		jLabel1.setText("Título do evento:");
 
 		jLabel2.setText("Valor do ingresso:");
 
-		jLabel3.setText("Data da realizaÃ§Ã£o:");
+		jLabel3.setText("Data da realização:");
 
 		jLabel4.setText("Show Musical:");
 
 		jLabel5.setText("Banda:");
 
-		jLabel6.setText("Tipo de mÃºsica:");
+		jLabel6.setText("Tipo de música:");
 
 		jButton1.setText("Cadastrar evento");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,9 +75,9 @@ public class Apresentacao extends javax.swing.JFrame {
 
 		jLabel8.setText("Quantidade de pagantes:");
 
-		jLabel9.setText("OpiniÃ£o geral:");
+		jLabel9.setText("Opinião geral:");
 
-		jButton2.setText("Incluir avaliaÃ§Ã£o");
+		jButton2.setText("Incluir avaliação");
 		jButton2.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton2ActionPerformed(evt);
@@ -137,7 +137,7 @@ public class Apresentacao extends javax.swing.JFrame {
 												.addGroup(layout
 														.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING,
 																false)
-														.addComponent(jTextField6,
+														.addComponent(jtfQtdPagantes,
 																javax.swing.GroupLayout.Alignment.LEADING)
 														.addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout
 																.createSequentialGroup().addGap(14, 14, 14)
@@ -145,8 +145,8 @@ public class Apresentacao extends javax.swing.JFrame {
 																		javax.swing.GroupLayout.PREFERRED_SIZE,
 																		javax.swing.GroupLayout.DEFAULT_SIZE,
 																		javax.swing.GroupLayout.PREFERRED_SIZE)))
-												.addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 233,
-														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(jtfOpiniaoGeral, javax.swing.GroupLayout.PREFERRED_SIZE,
+														233, javax.swing.GroupLayout.PREFERRED_SIZE)
 												.addComponent(jButton2).addComponent(jButton3))))))
 				.addContainerGap()));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
@@ -183,11 +183,11 @@ public class Apresentacao extends javax.swing.JFrame {
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jLabel8)
 						.addGroup(layout.createSequentialGroup()
-								.addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE,
+								.addComponent(jtfQtdPagantes, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE,
+										.addComponent(jtfOpiniaoGeral, javax.swing.GroupLayout.PREFERRED_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.PREFERRED_SIZE)
 										.addComponent(jLabel9))))
@@ -199,15 +199,48 @@ public class Apresentacao extends javax.swing.JFrame {
 	}
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+		try {
+			String titulo = jtfTituloEvento.getText();
+			double valor = Double.parseDouble(jtfValorIngresso.getText());
+			LocalDate data = LocalDate.parse(jtfDataRealizacao.getText(), formatter);
 
+			Evento ev;
+			if (!jtfBanda.getText().isBlank() && !jtfTipoMusica.getText().isBlank()) {
+				String nomeBanda = jtfBanda.getText();
+				String estiloMusical = jtfTipoMusica.getText();
+				ev = new ShowMusical(nomeBanda, estiloMusical, titulo, valor, data);
+			} else {
+				ev = new Evento(titulo, valor, data);
+			}
+			jComboBoxAvaliacaoEvento.addItem(ev);
+		} catch (NumberFormatException nfe) {
+			JOptionPane.showMessageDialog(this, "Valor do ingresso deve ser apenas números");
+		} catch (DateTimeParseException nfe) {
+			JOptionPane.showMessageDialog(this, "Data com formato inválido");
+		} catch (IllegalArgumentException iae) {
+			JOptionPane.showMessageDialog(this, iae.getMessage());
+		}
 	}
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
+		try {
+			int qtdPagantes = Integer.parseInt(jtfQtdPagantes.getText());
+			String opiniaoGeral = jtfOpiniaoGeral.getText();
 
+			Avaliacao av = new Avaliacao(qtdPagantes, opiniaoGeral);
+			Evento evento = (Evento) jComboBoxAvaliacaoEvento.getSelectedItem();
+			evento.setAvaliacao(av);
+			JOptionPane.showMessageDialog(this, "Avaliação incluída");
+		} catch (IllegalArgumentException iae) {
+			JOptionPane.showMessageDialog(this, iae.getMessage());
+		}
 	}
 
 	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
-
+		for (int i=0; i < jComboBoxAvaliacaoEvento.getItemCount(); i++) {
+			Evento evento = jComboBoxAvaliacaoEvento.getItemAt(i);
+			JOptionPane.showMessageDialog(this, evento.exibir());  // polimorfismo
+		}
 	}
 
 	/**
@@ -241,8 +274,8 @@ public class Apresentacao extends javax.swing.JFrame {
 	private javax.swing.JTextField jtfDataRealizacao;
 	private javax.swing.JTextField jtfBanda;
 	private javax.swing.JTextField jtfTipoMusica;
-	private javax.swing.JTextField jTextField6;
-	private javax.swing.JTextField jTextField7;
+	private javax.swing.JTextField jtfQtdPagantes;
+	private javax.swing.JTextField jtfOpiniaoGeral;
 	// End of variables declaration//GEN-END:variables
 
 }
